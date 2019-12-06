@@ -107,10 +107,9 @@ analytics:
 
 # Site Author
 author:
-  name             : "Your Name"
+  name             : "Austin Rochon, Emily Xie, and Mark Lock"
   avatar           : # path of avatar image, e.g. "/assets/images/bio-photo.jpg"
-  bio              : "I am an **amazing** person."
-  location         : "Somewhere"
+  bio              : 
   email            :
   links:
     - label: "Email"
@@ -143,7 +142,7 @@ footer:
       # url:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
-      # url:
+      url: "https://github.com/spottedd-spotify/spotify-project"
     - label: "GitLab"
       icon: "fab fa-fw fa-gitlab"
       # url:
