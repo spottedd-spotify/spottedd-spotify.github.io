@@ -8,6 +8,7 @@ header:
 - [Background](https://spottedd-spotify.github.io/contents/#background)
 - [Data Engineering](https://spottedd-spotify.github.io/contents/#data-engineering)
 - [Appendixes](https://spottedd-spotify.github.io/contents/#appendixes)
+- [EDA](https://spottedd-spotify.github.io/contents/#eda)
 
 # Background
 - Mark write-up 
@@ -40,6 +41,9 @@ to being a globally unique playlist ID (each file included playlists with a PID 
 an issue for any analyses we wanted to run on playlist-specific data. To account for this, we re-processed
 each CSV, adding an additional column called “unique_pid” which combined the file number with the playlist
 ID, and re-processed the data in BQ
+
+# EDA
+
 
 # Appendixes
 Finally, we've included several [appendixes](https://spottedd-spotify.github.io/appendixes/) that detail the nuts and bolts of our data engineering, infrastructure, and scraping efforts.
