@@ -43,7 +43,9 @@ each CSV, adding an additional column called “unique_pid” which combined the
 ID, and re-processed the data in BQ
 
 # EDA
-[[https://github.com/spottedd-spotify/spottedd-spotify.github.io/blob/master/images/eda_correlogram.png|alt=audio_features_correlogram]]
+![alt text](https://github.com/spottedd-spotify/spottedd-spotify.github.io/blob/master/images/eda_correlogram.png "Audio features correlogram")
+
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
 
 # Appendixes
