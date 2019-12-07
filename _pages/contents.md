@@ -5,6 +5,9 @@ header:
     image: "/images/spotify.jpeg"
 ---
 
+- [Background](https://spottedd-spotify.github.io/contents/#background)
+- [Data Engineering](https://spottedd-spotify.github.io/contents/#data-engineering)
+
 # Background
 - Mark write-up 
 
