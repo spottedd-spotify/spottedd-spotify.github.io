@@ -8,6 +8,10 @@ gallery:
     image_path: /images/content-eda/n_cluster_comparison.svg
     alt: "n cluster comparison"
     title: "n by cluster"
+  - url: /images/content-eda/danceability_cluster_comparison.svg
+    image_path: /images/content-eda/danceability_cluster_comparison.svg
+    alt: "danceability cluster comparison"
+    title: "danceability by cluster"
   - url: /images/content-eda/speechiness_cluster_comparison.svg
     image_path: /images/content-eda/speechiness_cluster_comparison.svg
     alt: "speechiness cluster comparison"
