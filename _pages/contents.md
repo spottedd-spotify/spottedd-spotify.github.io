@@ -3,6 +3,19 @@ title: "Contents"
 permalink: /contents/
 header:
     image: "/images/spotify.jpeg"
+gallery:
+  - url: /images/content-eda/n_cluster_comparison.svg
+    image_path: /images/content-eda/n_cluster_comparison.svg
+    alt: "n cluster comparison"
+    title: "n by cluster"
+  - url: /images/content-eda/speechiness_cluster_comparison.svg
+    image_path: /images/content-eda/speechiness_cluster_comparison.svg
+    alt: "speechiness cluster comparison"
+    title: "speechiness by cluster"
+  - url: /images/content-eda/tempo_cluster_comparison.svg
+    image_path: /images/content-eda/tempo_cluster_comparison.svg
+    alt: "tempo cluster comparison"
+    title: "tempo by cluster"
 ---
 
 - [Background](https://spottedd-spotify.github.io/contents/#background)
@@ -68,19 +81,8 @@ number of k centroids, then assigns each data point to the closest centroid [Tow
 We identified 12 salient clusters to group our data into. As you can see in the plots below, some features 
 (_speechiness, key_) are quite helpful in differentiating our songs, while some are virtually useless (_tempo_).
 
-gallery:
-  - url: /images/content-eda/n_cluster_comparison.svg
-    image_path: /images/content-eda/n_cluster_comparison.svg
-    alt: "n cluster comparison"
-    title: "n by cluster"
-  - url: /images/content-eda/speechiness_cluster_comparison.svg
-    image_path: /images/content-eda/speechiness_cluster_comparison.svg
-    alt: "speechiness cluster comparison"
-    title: "speechiness by cluster"
-  - url: /images/content-eda/tempo_cluster_comparison.svg
-    image_path: /images/content-eda/tempo_cluster_comparison.svg
-    alt: "tempo cluster comparison"
-    title: "tempo by cluster"
+{% include gallery caption="Spotifiy audio features by k-means cluster" %}
+
 
 # Appendixes
 Finally, we've included several [appendixes](https://spottedd-spotify.github.io/appendixes/) that detail the nuts and bolts of our data engineering, infrastructure, and scraping efforts.
