@@ -66,6 +66,8 @@ gallery:
 - [Data Engineering](https://spottedd-spotify.github.io/contents/#data-engineering)
 - [Appendixes](https://spottedd-spotify.github.io/contents/#appendixes)
 - [EDA](https://spottedd-spotify.github.io/contents/#eda)
+- [Baseline Modeling](https://spottedd-spotify.github.io/contents/#baseline-modeling)
+- [Model Refinement](https://spottedd-spotify.github.io/contents/#model-refinement)
 
 # Background
 - Mark write-up 
@@ -108,25 +110,45 @@ re-processed each CSV, adding an additional column called “unique_pid” which
 combined the file number with the playlist ID, and re-processed the data in BQ.
 
 # EDA
-In this section, we'll briefly recap our EDA from milestone 3. We began by examining the correlations of the audio features in our data set. The correlogram below
-depicts correlations that are intuitive. For example, acousticness is strongly negatively correlated with
-loudness and energy. On the other hand, energy is positively correlated with loudness and valence (the
-musical “positiveness” associated with a track). In conclusion, although there is some multi-collinearity
-between the features, we can still include them all, given that their absolute correlations are under 0.75
+In this section, we'll briefly recap our EDA from milestone 3. We began by 
+examining the correlations of the audio features in our data set. The 
+correlogram below depicts correlations that are intuitive. For example, 
+acousticness is strongly negatively correlated with loudness and energy. On the 
+other hand, energy is positively correlated with loudness and valence (the 
+musical “positiveness” associated with a track). In conclusion, although there 
+is some multi-collinearity between the features, we can still include them all, 
+given that their absolute correlations are under 0.75
 
 ![Audio Features Correlogram](/images/content-eda/audio_features_correlogram.svg "Audio features correlogram")
 
-The next step in our analysis was to find similarities between the songs in our dataset. To do so, we applied 
-k-means clustering to our data. K-means is an unsupervised learning method that groups data into clusters 
-according to the mean value of their features. At a high level, it works by initializing a user-specified 
-number of k centroids, then assigns each data point to the closest centroid [Towards Data Science: K-Means](https://towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1)
+The next step in our analysis was to find similarities between the songs in our 
+dataset. To do so, we applied k-means clustering to our data. K-means is an 
+unsupervised learning method that groups data into clusters according to the 
+mean value of their features. At a high level, it works by initializing a 
+user-specified number of k centroids, then assigns each data point to the 
+closest centroid [Towards Data Science: K-Means](https://towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1)
 
-
-We identified 12 salient clusters to group our data into. As you can see in the plots below, some features 
-(_speechiness, key_) are quite helpful in differentiating our songs, while some are virtually useless (_tempo_).
+We identified 12 salient clusters to group our data into. As you can see in the 
+plots below, some features (_speechiness, key_) are quite helpful in 
+differentiating our songs, while some are virtually useless (_tempo_).
 
 {% include gallery caption="Spotifiy audio features by k-means cluster" %}
 
+# Baseline Modeling
+In our first iteration, we used a combination of supervised and unsupervised 
+learning to generate the initial recommendation approach:
+1. **Labeling (K-means)**: cluster universe of all songs in all playlists into 
+12 clusters based on spotify music features. This serves as a 1-dimensional 
+label with 12 categories which makes computation extremely efficient if we run 
+supervised learning over it.
+2. **Classification (K-Nearest Neighbors**: Upon receiving a new song that is 
+not labeled with one of the 12 categories, we can use K-nearest neighbors based
+on musical features to identify the cluster in which this new song falls. We 
+found that the model with `K=100` gave us the highest cross-validation scores 
+(mean: 97.8%) and are confident in its ability to correctly put the new
+song in an appropriate cluster:
+
+# Model Refinement
 
 # Appendixes
 Finally, we've included several [appendixes](https://spottedd-spotify.github.io/appendixes/) that detail the nuts and bolts of our data engineering, infrastructure, and scraping efforts.
