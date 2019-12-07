@@ -70,7 +70,7 @@ loudness and energy. On the other hand, energy is positively correlated with lou
 musical “positiveness” associated with a track). In conclusion, although there is some multi-collinearity
 between the features, we can still include them all, given that their absolute correlations are under 0.75
 
-![Audio Features Correlogram](https://raw.githubusercontent.com/spottedd-spotify/spottedd-spotify.github.io/master/images/content-eda/audio_features_correlogram.svg "Audio features correlogram")
+![Audio Features Correlogram](/images/content-eda/audio_features_correlogram.svg "Audio features correlogram")
 
 The next step in our analysis was to find similarities between the songs in our dataset. To do so, we applied 
 k-means clustering to our data. K-means is an unsupervised learning method that groups data into clusters 
