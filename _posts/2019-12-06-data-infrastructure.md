@@ -3,7 +3,8 @@ title: "Spotify Project: Data Infrastructure Setup"
 date: 2019-12-06
 author_profile: true
 excerpt: "Building data infrastructure to support the Spotify project"
-tags: [Data Science, Data Engineering]
+header:
+    image: "/images/gcp.png"
 ---
 
 This project uses the [1 million playlist data set](https://recsys-challenge.spotify.com/)
