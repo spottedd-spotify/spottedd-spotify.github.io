@@ -280,10 +280,10 @@ compress_html:
 
 # Defaults
 defaults:
-  # _posts
+  # _appendices
   - scope:
       path: ""
-      type: posts
+      type: appendix
     values:
       layout: single
       author_profile: true
