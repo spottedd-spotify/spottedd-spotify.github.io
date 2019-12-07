@@ -2,8 +2,8 @@
 main:
    - title: "Contents"
      url: /contents/
-  # - title: "Sample Posts"
-  #   url: /year-archive/
+   - title: "Appendixes"
+     url: /appendixes/
   # - title: "Sample Collections"
   #   url: /collection-archive/
   # - title: "Sitemap"
