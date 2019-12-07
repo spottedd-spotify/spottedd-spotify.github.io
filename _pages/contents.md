@@ -1,6 +1,6 @@
 ---
-title: "About"
-permalink: /about/
+title: "Contents"
+permalink: /contents/
 header:
     image: "/images/spotify.jpeg"
 ---
