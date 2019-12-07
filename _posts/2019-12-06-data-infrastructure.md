@@ -6,6 +6,7 @@ excerpt: "Building data infrastructure to support the Spotify project"
 header:
     image: "/images/gcp.png"
 ---
+# Introduction
 
 This project uses the [1 million playlist data set](https://recsys-challenge.spotify.com/)
 
