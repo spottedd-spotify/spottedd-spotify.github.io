@@ -12,6 +12,38 @@ gallery:
     image_path: /images/content-eda/danceability_cluster_comparison.svg
     alt: "danceability cluster comparison"
     title: "danceability by cluster"
+  - url: /images/content-eda/duration_ms_cluster_comparison.svg
+    image_path: /images/content-eda/duration_ms_cluster_comparison.svg
+    alt: "duration cluster comparison"
+    title: "duration by cluster"
+  - url: /images/content-eda/energy_cluster_comparison.svg
+    image_path: /images/content-eda/energy_cluster_comparison.svg
+    alt: "energy cluster comparison"
+    title: "energy by cluster"
+  - url: /images/content-eda/instrumentalness_cluster_comparison.svg
+    image_path: /images/content-eda/instrumentalness_cluster_comparison.svg
+    alt: "instrumentalness cluster comparison"
+    title: "instrumentalness by cluster"
+  - url: /images/content-eda/key_cluster_comparison.svg
+    image_path: /images/content-eda/key_cluster_comparison.svg
+    alt: "key cluster comparison"
+    title: "key by cluster"
+  - url: /images/content-eda/liveness_cluster_comparison.svg
+    image_path: /images/content-eda/liveness_cluster_comparison.svg
+    alt: "liveness cluster comparison"
+    title: "liveness by cluster"
+  - url: /images/content-eda/loudness_cluster_comparison.svg
+    image_path: /images/content-eda/loudness_cluster_comparison.svg
+    alt: "loudness cluster comparison"
+    title: "loudness by cluster"           
+  - url: /images/content-eda/mode_cluster_comparison.svg
+    image_path: /images/content-eda/mode_cluster_comparison.svg
+    alt: "mode cluster comparison"
+    title: "mode_cluster_comparison.svg by cluster"
+  - url: /images/content-eda/mode_cluster_comparison.svg
+    image_path: /images/content-eda/mode_cluster_comparison.svg
+    alt: "mode cluster comparison"
+    title: "mode by cluster"    
   - url: /images/content-eda/speechiness_cluster_comparison.svg
     image_path: /images/content-eda/speechiness_cluster_comparison.svg
     alt: "speechiness cluster comparison"
@@ -20,6 +52,14 @@ gallery:
     image_path: /images/content-eda/tempo_cluster_comparison.svg
     alt: "tempo cluster comparison"
     title: "tempo by cluster"
+  - url: /images/content-eda/time_signature_cluster_comparison.svg
+    image_path: /images/content-eda/time_signature_cluster_comparison.svg
+    alt: "time signature cluster comparison"
+    title: "time signature by cluster"    
+  - url: /images/content-eda/valence_cluster_comparison.svg
+    image_path: /images/content-eda/valence_cluster_comparison.svg
+    alt: "valence cluster comparison"
+    title: "valence by cluster"    
 ---
 
 - [Background](https://spottedd-spotify.github.io/contents/#background)
