@@ -3,7 +3,7 @@ title: "Contents"
 permalink: /contents/
 header:
     image: "/images/spotify.jpeg"
-gallery:
+gallery_kmeans:
   - url: /images/content-eda/n_cluster_comparison.svg
     image_path: /images/content-eda/n_cluster_comparison.svg
     alt: "n cluster comparison"
@@ -64,10 +64,10 @@ gallery:
 
 - [Background](https://spottedd-spotify.github.io/contents/#background)
 - [Data Engineering](https://spottedd-spotify.github.io/contents/#data-engineering)
-- [Appendixes](https://spottedd-spotify.github.io/contents/#appendixes)
 - [EDA](https://spottedd-spotify.github.io/contents/#eda)
 - [Baseline Modeling](https://spottedd-spotify.github.io/contents/#baseline-modeling)
 - [Model Refinement](https://spottedd-spotify.github.io/contents/#model-refinement)
+- [Appendixes](https://spottedd-spotify.github.io/contents/#appendixes)
 
 # Background
 - Mark write-up 
@@ -132,7 +132,7 @@ We identified 12 salient clusters to group our data into. As you can see in the
 plots below, some features (_speechiness, key_) are quite helpful in 
 differentiating our songs, while some are virtually useless (_tempo_).
 
-{% include gallery caption="Spotifiy audio features by k-means cluster" %}
+{% include gallery_kmeans caption="Spotifiy audio features by k-means cluster" %}
 
 # Baseline Modeling
 In our first iteration, we used a combination of supervised and unsupervised 
