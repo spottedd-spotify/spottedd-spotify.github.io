@@ -59,7 +59,11 @@ gallery:
   - url: /images/content-eda/valence_cluster_comparison.svg
     image_path: /images/content-eda/valence_cluster_comparison.svg
     alt: "valence cluster comparison"
-    title: "valence by cluster"    
+    title: "valence by cluster"
+images:
+  - image_path: /images/content-baseline-modeling/contentDeanMartin_AMarshmallowWorld_nearestneighbors.svg
+    title: Dean Martin: A Marshmallow World
+
 ---
 
 - [Background](https://spottedd-spotify.github.io/contents/#background)
@@ -147,6 +151,8 @@ on musical features to identify the cluster in which this new song falls. We
 found that the model with `K=100` gave us the highest cross-validation scores 
 (mean: 97.8%) and are confident in its ability to correctly put the new
 song in an appropriate cluster:
+
+{% include images caption="K-NN predictions by song" %}
 
 # Model Refinement
 
