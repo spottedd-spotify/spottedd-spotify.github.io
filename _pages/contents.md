@@ -62,7 +62,7 @@ gallery:
     title: "valence by cluster"
 images:
   - image_path: /images/content-baseline-modeling/contentDeanMartin_AMarshmallowWorld_nearestneighbors.svg
-    title: Dean Martin: A Marshmallow World
+    title: "Dean Martin: A Marshmallow World"
 
 ---
 
