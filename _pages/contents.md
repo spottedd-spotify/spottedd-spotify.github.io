@@ -61,8 +61,12 @@ gallery:
     alt: "valence cluster comparison"
     title: "valence by cluster"
 images:
-  - image_path: /images/content-baseline-modeling/contentDeanMartin_AMarshmallowWorld_nearestneighbors.svg
+  - image_path: /images/content-baseline-modeling/DeanMartin_AMarshmallowWorld_nearestneighbors.svg
     title: "Dean Martin: A Marshmallow World"
+  - image_path: /images/content-baseline-modeling/KendrickLamar_m.A.A.dcity_nearestneighbors.svg
+    title: "Kendrick Lamar: m.A.A.d. City"
+  - image_path: /images/content-baseline-modeling/Slayer_RainingBlood_nearestneighbors.svg
+    title: "Slayer: Raining Blood"   
 
 ---
 
