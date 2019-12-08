@@ -152,7 +152,11 @@ found that the model with `K=100` gave us the highest cross-validation scores
 (mean: 97.8%) and are confident in its ability to correctly put the new
 song in an appropriate cluster:
 
-{% include images caption="K-NN predictions by song" %}
+<ul class="photo-gallery">
+  {% for image in page.images %}
+    <li><img src="{{ image.image_path }}" alt="{{ image.title}}"/></li>
+  {% endfor %}
+</ul>
 
 # Model Refinement
 
