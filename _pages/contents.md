@@ -3,7 +3,7 @@ title: "Contents"
 permalink: /contents/
 header:
     image: "/images/spotify.jpeg"
-gallery_kmeans:
+gallery:
   - url: /images/content-eda/n_cluster_comparison.svg
     image_path: /images/content-eda/n_cluster_comparison.svg
     alt: "n cluster comparison"
@@ -132,7 +132,7 @@ We identified 12 salient clusters to group our data into. As you can see in the
 plots below, some features (_speechiness, key_) are quite helpful in 
 differentiating our songs, while some are virtually useless (_tempo_).
 
-{% include gallery_kmeans caption="Spotifiy audio features by k-means cluster" %}
+{% include gallery caption="Spotify audio features by k-means cluster" %}
 
 # Baseline Modeling
 In our first iteration, we used a combination of supervised and unsupervised 
