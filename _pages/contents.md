@@ -165,6 +165,7 @@ three songs:
 ![Sample clusters](/images/content-baseline-modeling//sample_clusters.png)
 
 
+
 In addition, we can also use our model to make song recommendations. Below, you 
 can see the top 10 "closest" songs for each of the following three songs above:
 
