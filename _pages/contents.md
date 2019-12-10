@@ -70,7 +70,7 @@ images:
 
 ---
 
-- [Background](https://spottedd-spotify.github.io/contents/##background)
+- [Background](https://spottedd-spotify.github.io/contents/#background)
 - [Data Engineering](https://spottedd-spotify.github.io/contents/#data-engineering)
 - [EDA](https://spottedd-spotify.github.io/contents/#eda)
 - [Baseline Modeling](https://spottedd-spotify.github.io/contents/#baseline-modeling)
@@ -80,7 +80,7 @@ images:
 ## Background
 - Mark/Emily write-up 
 
-# Data Engineering 
+## Data Engineering 
 We encountered multiple issues with our dataset. For one, the “playlist-song” 
 dataset comprised of just under 70 million rows total. A dataset like this was 
 far too large to manage locally on our machines without being confined to 
