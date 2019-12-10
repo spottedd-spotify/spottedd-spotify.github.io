@@ -70,14 +70,14 @@ images:
 
 ---
 
-- [Background](https://spottedd-spotify.github.io/contents/#background)
+- [Background](https://spottedd-spotify.github.io/contents/##background)
 - [Data Engineering](https://spottedd-spotify.github.io/contents/#data-engineering)
 - [EDA](https://spottedd-spotify.github.io/contents/#eda)
 - [Baseline Modeling](https://spottedd-spotify.github.io/contents/#baseline-modeling)
 - [Model Refinement](https://spottedd-spotify.github.io/contents/#model-refinement)
 - [Appendixes](https://spottedd-spotify.github.io/contents/#appendixes)
 
-# Background
+## Background
 - Mark/Emily write-up 
 
 # Data Engineering 
