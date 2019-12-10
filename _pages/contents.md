@@ -167,8 +167,8 @@ for the following three songs:
 
 ![Sample clusters](/images/content-baseline-modeling//sample_clusters.png)
 
-Let's compare the cluster assignments for Slayer's Raining Blood, and Mozart's
-Piano Concerto No.21 in C Major. Clearly, these are two songs that couldn't be 
+Let's compare the cluster assignments for Slayer's _Raining Blood_, and Mozart's
+_Piano Concerto No.21 in C Major_. Clearly, these are two songs that couldn't be 
 more different. Slayer is a 1980's [thrash metal](https://en.wikipedia.org/wiki/Thrash_metal)
 band known for its aggression, "fast, percussive beats, low-register guitar 
 riffs, and shredding-style lead guitar work". Mozart on the other hand is, well,
