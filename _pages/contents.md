@@ -78,7 +78,39 @@ images:
 - [Appendixes](https://spottedd-spotify.github.io/contents/#appendixes)
 
 ## Background
-- Mark/Emily write-up 
+
+Our project goal is to:
+
+Build a recommendation engine that recommends new songs to add to a given playlist purely based on
+musical features obtained from Spotify.
+
+The operational definition is to:
+
+Build a model that makes a decision of inclusion or exclusion for any given new song S_new in any
+given playlist P that contains existing songs S_1, S_2, S_3, …. S_n.
+
+Note that this project is unlike a traditional recommender model where we have to predict affinity through
+ratings or consumption (e.g. movies for netflix, items for amazon). We do not have a ground truth from
+Spotify on this so we do not use a traditional collaborative filtering framework. This brings us to
+the considerations we need to make.
+
+There are a few considerations we need to take into account in our models, 
+which are addressed at different points of our analysis:
+
+- **Similarity:** Similarity of songs within playlists is a sound assumption to make for recommending
+new songs for a given playlist
+- **Novelty:** The value of song recommendations is that there is an element of novelty/exploration,
+so users like to see new songs that are familiar but offer just enough novelty to keep them
+interested. We will try to build this in structurally through our system.
+- **Drift:** We want to build in bounds within our model to address song drift. This is the idea that if
+an algorithm recommends songs that move the music features away from the original average
+music features of a given playlist over time, we encounter drift. The user will then have to
+re-seed the playlist with their original tracks to get the algorithm back on track. We want to avoid
+this by imposing some bounds on our model. For example, in our preliminary model, our bounds
+were songs have to be in-cluster to be recommended in a relevant playlist.
+- **Representativeness:** Is a song representative of the playlist and/or is a playlist representative
+of certain songs? Not all playlists are made equally in terms of diversity. We devise
+models that account for differences in diversity of playlists’ musical features.
 
 ## Data Engineering 
 We encountered multiple issues with our dataset. For one, the “playlist-song” 
@@ -215,7 +247,17 @@ duplicate songs from the target song is zero, which makes sense.
 
 
 ## Model Refinement
-- Mark analysis
+### Better recommendation: *inverse distance weighted monte carlo*
+
+### Writing the prequel: *unique playlist models using KNN without clustering*
+
+### A reliable workhorse: *unique playlist models using regularized logistic regression*
+
+
+## Conclusion
+
+
+
 
 ## Appendixes
 Finally, we've included several [appendixes](https://spottedd-spotify.github.io/appendixes/) that detail the nuts and bolts of our data engineering, infrastructure, and scraping efforts.
