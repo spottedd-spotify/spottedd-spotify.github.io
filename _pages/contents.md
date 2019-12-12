@@ -75,6 +75,7 @@ images:
 - [EDA](https://spottedd-spotify.github.io/contents/#eda)
 - [Baseline Modeling](https://spottedd-spotify.github.io/contents/#baseline-modeling)
 - [Model Refinement](https://spottedd-spotify.github.io/contents/#model-refinement)
+- [Conclusion](https://spottedd-spotify.github.io/contents/#conclusion)
 - [Appendixes](https://spottedd-spotify.github.io/contents/#appendixes)
 
 ## Background
@@ -400,8 +401,8 @@ audio features. This is a testament to the efficacy of our clustering work
 earlier. However, direct your attention to the following audio features: `key`,
 `speechiness`, `acousticness`, `instrumentalness`, `liveness`. As you can see, 
 *Bad Romance* has very low values for each of these fields (close to 0 for 
-`key`, `acousticness`, and `instrumentalness`. Our weighted Monte Carlo playlist
-is much closer to *Bad Romance*  for these field than that of the naive 
+`key`, `acousticness`, and `instrumentalness`). Our weighted Monte Carlo playlist
+is much closer to *Bad Romance*  for these fields than that of the naive 
 playlist.
 
 ### A reliable workhorse: *unique playlist models using regularized logistic regression*
@@ -411,15 +412,15 @@ playlist.
 
 Our recommendation to the Spotify playlist team is that they employ the following procedure procedure:
 
-1. **Identifcation:**
+- **Identifcation:**
 Create a model that learns to classify songs into clusters and use that to identify playlist candidates for
 new songs
 
-    1. This entails creating labels through a clustering algorithm such as k-means. 
+    - This entails creating labels through a clustering algorithm such as k-means. 
     We found the ideal k turned out to be 12. This allowed for sufficient heterogeneity in
     the song space. This also makes computation extremely efficient.
     
-    2. The cluster labels serve as supervised learning labels whereby song features can be used to predict
+    - The cluster labels serve as supervised learning labels whereby song features can be used to predict
     the cluster in which it belongs. We used the KNN algorithm to do this. Accuracy of identifying the cluster correctly
     was extremely high (97%) and allowed us to identify candidate playlists associated with in-cluster songs adjacent
     to the new song.
@@ -428,15 +429,15 @@ Benefits: This approach is easy to understand and easy to deploy. It addresses
 the consideration of drift by putting a boundary around eligible playlists (only those that are in-cluster are
 eligible). It is also accurate in identifying the correct cluster label.
  
-2. **Deployment:**
+- **Deployment:**
 Use a monte carlo simulation (1000 simulations) to create a priority list of
 playlists for which to add the new song
-    1. In each simulation, sample one song from all songs in the predicted cluster of the new song taken
+    - In each simulation, sample one song from all songs in the predicted cluster of the new song taken
     from step 1
-    2. Novelty is overrated (see section on KNN for individual playlists). Use inverse distance weighting in the step above. Calculate the distance between the new song and all in-cluster songs
+    - Novelty is overrated (see section on KNN for individual playlists). Use inverse distance weighting in the step above. Calculate the distance between the new song and all in-cluster songs
     using the musical features. Then in the sampling step, weight the closer songs more than songs further out.
-    3. From that one song, sample one playlist associated with that.
-    4. Repeat many times to build a frequency table of playlist appearances. The playlists
+    - From that one song, sample one playlist associated with that.
+    - Repeat many times to build a frequency table of playlist appearances. The playlists
     that appear the most get first dibs on the new song. 
      
 
