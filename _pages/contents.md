@@ -88,7 +88,7 @@ musical features obtained from Spotify.
 The operational definition is to:
 
 Build a model that makes a decision of inclusion or exclusion for any given new song S_new in any
-given playlist P that contains existing songs $S_1, S_2, S_3, …. S_n.$
+given playlist P that contains existing songs $$S_1, S_2, S_3, …. S_n$$
 
 Note that this project is unlike a traditional recommender model where we have to predict affinity through
 ratings or consumption (e.g. movies for netflix, items for amazon). We do not have a ground truth from
