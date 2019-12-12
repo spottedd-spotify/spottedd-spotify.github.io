@@ -445,7 +445,7 @@ We notice that on average for our playlists, the top three predictors with the h
 
 ![](/images/logistic_regression/mode_t_score.svg)
 ![](/images/logistic_regression/speechiness_t_score.svg)
-![](/images/logistic_regression/instrumentalness_t_score.svg)
+![](/images/logistic_regression/Instrumentalness_t_score.svg)
 
 On the low end are duration and time_signature, which make sense given that we would not expect a user to like a song any less due to these characteristics.
 
