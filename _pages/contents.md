@@ -114,6 +114,10 @@ this by imposing some bounds on our model. For example, in our baseline model, o
 of certain songs? Not all playlists are made equally in terms of diversity. We devise
 models that account for differences in diversity of playlists’ musical features.
 
+- **Ease of deployment:** An engineering team should be able to deploy the recommender system easily. Simpler models
+are valued here. Models that take less time to run since latency is of the essence in a world where music is
+released rapidly everyday.
+
 Breaking this problem down, there are actually two steps:
 
 - **Identification:** This is identifying whether a song should be included or excluded from a playlist. This step is where
@@ -293,9 +297,10 @@ examples there were quite large.
 - Stratified validation splits: Because of the large number of playlists in the data and the sparsity of examples for each, 
 the model required stratified validation splits, which again, was not as much of an issue for the cluster model.
 
-While having benefits of taking into account the heterogeneity of playlists (one of our considerations),
-our findings show that this approach falls prey to overfitting and from a product perspective 
-(as opposed to a mathematical perspective) did not address our initial considerations as well as the baseline model.
+While this approach captures the heterogeneity of playlists (one of our considerations),
+our findings show that this approach falls prey to overfitting. From a product perspective 
+(as opposed to a mathematical perspective), it did not address our initial considerations 
+as well as the baseline model.
 
 The plots below tell us a few things:
 1. Overfitting occured. There was a huge gap between train and test accuracy and F1 scores. F1 scores are more revealing
@@ -311,12 +316,26 @@ taking into account further data points.
 
 Figure: distribution of 250 playlist models, given different levels of k
 
+![](/images/knn-features/train_accuracy.svg)
+![](/images/knn-features/test_accuracy.svg)
+![](/images/knn-features/train_f1.svg)
+![](/images/knn-features/train_f1.svg)
 
 Conclusion:
-This is not a great model to predict recommendation, because
-- it is overfit
-- takes a long 
-
+This was not a great approach to predicting recommendations, because
+- **This tended to overfit.** Did not give great predictions for new songs.
+- **Violated our ease of deployment consideration.** For 250 playlists, the models took ~6 minutes to train and predict. Spotify
+has over thousands of playlists. Deploying this quickly would be a considerable computational feat. Also, with KNN
+since it is not a structural model, the time sink lies in the prediction step as opposed to the fitting step.
+Predicting many new songs with this approach becomes costly very quickly. Our baseline cluster learning model, took
+negligible time to predict!
+- **This had no constraints to curb drift.** Our baseline had clusters as boundaries to protect us from drift. 
+This was not true in this appraoch. Since we were taking nearest neighbors, the assumption is that multiple 
+neighbors will
+"cancel" each other out in terms of musical features. However, this can very much be untrue, in which case, over time,
+playlists can experience drift.
+- **Novelty was overrated** The one inference we can make from the performance of these models is that songs
+close to each other tend to predict inclusion and exclusion in playlists well.
 
 ### A reliable workhorse: *unique playlist models using regularized logistic regression*
 
