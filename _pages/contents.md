@@ -99,18 +99,33 @@ which are addressed at different points of our analysis:
 
 - **Similarity:** Similarity of songs within playlists is a sound assumption to make for recommending
 new songs for a given playlist
+
 - **Novelty:** The value of song recommendations is that there is an element of novelty/exploration,
 so users like to see new songs that are familiar but offer just enough novelty to keep them
 interested. We will try to build this in structurally through our system.
+
 - **Drift:** We want to build in bounds within our model to address song drift. This is the idea that if
 an algorithm recommends songs that move the music features away from the original average
 music features of a given playlist over time, we encounter drift. The user will then have to
 re-seed the playlist with their original tracks to get the algorithm back on track. We want to avoid
-this by imposing some bounds on our model. For example, in our preliminary model, our bounds
-were songs have to be in-cluster to be recommended in a relevant playlist.
+this by imposing some bounds on our model. For example, in our baseline model, our bounds were the cluster boundaries.
+
 - **Representativeness:** Is a song representative of the playlist and/or is a playlist representative
 of certain songs? Not all playlists are made equally in terms of diversity. We devise
 models that account for differences in diversity of playlists’ musical features.
+
+Breaking this problem down, there are actually two steps:
+
+- **Identification:** This is identifying whether a song should be included or excluded from a playlist. This step is where
+traditional ML/ data science technqiues can help the most. We've done a lot of work in this realm with our models, because
+this is the most testable with hard metrics like accuracy and F1.
+
+- **Deployment:** The candidate set of playlists that may come out of identification will most likely be quite large,
+given the nature of our dataset. How do we actually deploy a recommendation? In our monte carlo method, we use
+randomness to figure out priority of playlists to add to first. Depending on how rapidly Spotify's playlist team wants
+to show new songs to a user, the team can dial up or dial down the number of playlists to recommend a song using a priority
+list. The efficacy of our methods for this part of the problem is not as readily observable since we don't have
+user satisfaction info here. However, we used our a priori considerations above to guide us in the right direction.
 
 ## Data Engineering 
 We encountered multiple issues with our dataset. For one, the “playlist-song” 
@@ -250,6 +265,58 @@ duplicate songs from the target song is zero, which makes sense.
 ### Better recommendation: *inverse distance weighted monte carlo*
 
 ### Writing the prequel: *unique playlist models using KNN without clustering*
+After creating the KNN model that learns song cluster labels, we then asked the question, "What is the simplest model we
+can make to serve as a comparison?". Like a good YA novelist, we decided to write a prequel to our baseline model.
+
+This model was the same as the baseline model in the sense that it utilized KNN to do supervised learning.
+
+However, this model differed from the baseline model in a few ways:
+- Targets and features: Our targets and features changed here.
+    1. Targets: Instead of predicting the cluster in which the song belongs (and thus, getting us a candidate set of
+    playlists within that cluster), we now predicted the decision of inclusion and exclusion directly into a playlist
+    (binary: 1 for inclusion and 0 for exclusion).
+    2. Features: Our features required no pre-processing and are the pure Spotify musical features obtained from the API.
+    
+- Individual models per playlist: While the baseline model was an omnibus model that looked at all songs across
+playlists, this framework makes a separate model for each playlist. This addresses the question of representativeness
+and diversity mentioned in the background. Some playlists might be more diverse than others and/or more representative
+of certain musical features. We wanted to capture this variety in our models. We ran a random sample of 250 playlists
+and all of their songs. There were about 17,500 songs in total.
+ 
+- Accuracy metric: Instead of evaluating whether a song accurately fell into a cluster, we now evaluated whether a song
+accurately fell into specific playlists. Playlists were on average about 70 songs big.
+
+- Downsampling playlist non-examples: To get balanced data sets for each model run, we had to downsample 
+non-examples in the dataset. This was not relatively an issue when we were dealing with clusters since the number of
+examples there were quite large.
+
+- Stratified validation splits: Because of the large number of playlists in the data and the sparsity of examples for each, 
+the model required stratified validation splits, which again, was not as much of an issue for the cluster model.
+
+While having benefits of taking into account the heterogeneity of playlists (one of our considerations),
+our findings show that this approach falls prey to overfitting and from a product perspective 
+(as opposed to a mathematical perspective) did not address our initial considerations as well as the baseline model.
+
+The plots below tell us a few things:
+1. Overfitting occured. There was a huge gap between train and test accuracy and F1 scores. F1 scores are more revealing
+because they represent the harmonic mean between precision and recall which are both good measures for unbalanced and
+sparse data sets like ours. This is not great for generalizing to new songs.
+
+2. Our intuition that playlists are heterogenous in musical features is founded. The models that arose from each had
+very different accuracies.
+
+3. Novelty is overrated. The results of these models gives a clue into how much novelty is in these playlists. K=2
+performed the best here, meaning the act of averaging relatively close data points gave better predictions than 
+taking into account further data points.
+
+Figure: distribution of 250 playlist models, given different levels of k
+
+
+Conclusion:
+This is not a great model to predict recommendation, because
+- it is overfit
+- takes a long 
+
 
 ### A reliable workhorse: *unique playlist models using regularized logistic regression*
 
