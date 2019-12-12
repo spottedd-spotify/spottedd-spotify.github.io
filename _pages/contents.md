@@ -475,3 +475,4 @@ edge ML methods, a little amount of intelligence in the right place and the righ
 Finally, we've included several [appendixes](https://spottedd-spotify.github.io/appendixes/) that detail the nuts and bolts of our data engineering, infrastructure, and scraping efforts.
 - [Data Infrastructure](https://spottedd-spotify.github.io/data-infrastructure/)
 - [Data Scraping](https://spottedd-spotify.github.io/spotify-data-scraping/)
+- [Literature Review](https://spottedd-spotify.github.io/literature-review/)
