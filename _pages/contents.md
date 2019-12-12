@@ -345,8 +345,66 @@ close to each other tend to predict inclusion and exclusion in playlists well.
 
 ## Conclusion
 
+Our recommendation to the Spotify playlist team is that they employ the following procedure procedure:
 
+1. **Identifcation:**
+Create a model that learns to classify songs into clusters and use that to identify playlist candidates for
+new songs
 
+    1. This entails creating labels through a clustering algorithm such as k-means. 
+    We found the ideal k turned out to be 12. This allowed for sufficient heterogeneity in
+    the song space. This also makes computation extremely efficient.
+    
+    2. The cluster labels serve as supervised learning labels whereby song features can be used to predict
+    the cluster in which it belongs. We used the KNN algorithm to do this. Accuracy of identifying the cluster correctly
+    was extremely high (97%) and allowed us to identify candidate playlists associated with in-cluster songs adjacent
+    to the new song.
+
+Benefits: This approach is easy to understand and easy to deploy. It addresses
+the consideration of drift by putting a boundary around eligible playlists (only those that are in-cluster are
+eligible). It is also accurate in identifying the correct cluster label.
+ 
+2. **Deployment:**
+Use a monte carlo simulation (1000 simulations) to create a priority list of
+playlists for which to add the new song
+    1. In each simulation, sample one song from all songs in the predicted cluster of the new song taken
+    from step 1
+    2. Novelty is overrated (see section on KNN for individual playlists). Use inverse distance weighting in the step above. Calculate the distance between the new song and all in-cluster songs
+    using the musical features. Then in the sampling step, weight the closer songs more than songs further out.
+    3. From that one song, sample one playlist associated with that.
+    4. Repeat many times to build a frequency table of playlist appearances. The playlists
+    that appear the most get first dibs on the new song. 
+     
+
+Benefits: The simulation allows us to sample from multiple universes to really find
+what is most representative of the playlist space in the cluster. The inverse distance weighting
+allows us to exploit our knowledge that novelty is overrated. Songs within playlists tend to
+stick closely to their average musical features, so weighting in-cluster songs that are nearer to the new song
+in terms of the musical feature vector during the simulation is an appropriate step to take.
+
+There are two approaches we do not recommend due to overfitting and inability to model sparse examples well.
+
+1. Creating individual KNN models for each playlist, using songs' musical features as predictors
+2. Creating individual logistic models for each playlist, using songs' musical features as predictors
+
+While the intuition to capture heterogeneity across playlists was founded, the generalizability to test data was lacking.
+Ease of deployment was also lacking. 
+
+We did however uncover great inference from these failed approaches:
+
+1. Novelty is overrated. In the KNN model, k=2 performed the best in terms of predicting inclusion in a playlist.
+This suggests that songs in playlists are clustered quite tightly together in terms of musical features.
+2. Structural models allow us to see the most important features. Mode (major/minor), tempo, speechiness, instrumentalness
+were the most important features in all of the logistic models. 
+
+Because of the sparseness of examples for individual playlists, future work would address
+this augmentation of our dataset with possible user satisfaction metrics (song adds, song listens, etc.).
+This could also be a dynamic process whereby our recommender engine could add songs and then get immediate feedback
+through user actions - creating a reinforcement learning system akin to near-miss learning. The problem can be seen
+through the lens of a teacher (user) - learner (algorithm) relationship.
+
+That being said, we have identified a procedure that works relatively well. Although it does not employ cutting
+edge ML methods, a little amount of intelligence in the right place and the right time goes a long way.
 
 ## Appendixes
 Finally, we've included several [appendixes](https://spottedd-spotify.github.io/appendixes/) that detail the nuts and bolts of our data engineering, infrastructure, and scraping efforts.
