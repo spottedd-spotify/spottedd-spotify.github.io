@@ -424,7 +424,7 @@ Additionally, given the variability of the measurements from one predictor to th
 
 Given the time constraints, we did not endeavor to train a model for all playlists; for our explorations, we sampled a dataset of ~30,000 songs across ~500 playlists.
 
-We then looped through each playlist, training each model with L1 regularization to penalize noisy predictors. As with above, we ensured to randomly downsample the number of songs outside of the playlist, where n is equivalent to the number of songs that within.
+We then looped through each playlist, training each model with L1 regularization to penalize noisy predictors. To create a balanced dataset, we randomly downsampled the number of songs outside of the playlist to ensure we obtained n non-examples, where n is equivalent to the number of songs that were in the playlist.
 
 We plotted our accuracy scores to visualize the effectiveness of our training set:
 ![](/images/logistic_regression/train_accuracy_regression_violin.svg)
@@ -435,37 +435,19 @@ We plotted our accuracy scores to visualize the effectiveness of our training se
 
 Overall, the middle 50% of test accuracy scores for our models resided between 0.6 - 0.8. Most of our models, then, do predict with significance, but this pales in comparison to our winning model.
 
+Note that we plotted F1 as well since it represents a harmonic mean of precision and accuracy - which is a better measure of how well our models perform given the sparse nature of our examples. The model overfits due to huge gaps between train and test scores.
+
 Given the structural nature of these models, through our playlist-centric analysis, we were also able to extract insight around our predictors our sample of 500 playlists by calculating the T-values for each of the predictors. Below are the means across each model:
 
 ![](/images/logistic_regression/mean_t_values.png)
 
-We notice that on average for our playlists, the top three predictors with the highest T-scores are mode, speechiness, and instrumentalness.
+We notice that on average for our playlists, the top three predictors with the highest T-scores are mode (major/minor key), speechiness, and instrumentalness. There are marked differences in mode between sad and happy songs. Speechiness most likely comes from a differentation between more urban genres and others. Instrumental differences are prevalent between classical and pop genres.
 
 ![](/images/logistic_regression/mode_t_score.svg)
 ![](/images/logistic_regression/speechiness_t_score.svg)
 ![](/images/logistic_regression/instrumentalness_t_score.svg)
 
 On the low end are duration and time_signature, which make sense given that we would not expect a user to like a song any less due to these characteristics.
-
-**Issues**
-
-Aside from the lower accuracy scores on average, given that we train with the same selection of regressors across all models, and that playlists differ in size, we encounter issues when the number of predictors in a given playlist outnumber the observations (p > n).
-
-In a simple query during our EDA:
-```
-SELECT COUNT(count_unique) FROM (
-  SELECT COUNT(*) AS count_unique
-  FROM playlist_songs.playlists
-  GROUP BY unique_pid
-)
-WHERE count_unique < 13
-```
-
-We discover that across our dataset, 57,460 of the playlists would contain an insufficient number of observations to train on. This likely accounts for the non-zero number of items that we notice in our train accuracy score plot.
-
-Theoretically, this poses issues; given that there are 90,9100 total unique playlists, do we simply accept that 6% of them will be overfit? Alternatively, we could adaptively determine a subset of the best predictors for each model, such that p < n, such that no model overfits. However, this poses issues when a playlist is sufficiently small such that we rely on only a few predictors––surely a playlist should be characterized by more than a few parameters. This also begs the question of: what, in fact, should we do for such small playlists? Perhaps we could take them out of the calculus entirely.
-
-
 
 
 ## Conclusion
@@ -486,8 +468,7 @@ new songs
     to the new song.
 
 Benefits: This approach is easy to understand and easy to deploy. It addresses
-the consideration of drift by putting a boundary around eligible playlists (only those that are in-cluster are
-eligible). It is also accurate in identifying the correct cluster label.
+the consideration of drift by putting a boundary around eligible playlists (only those that are in-cluster are eligible). It is also accurate in identifying the correct cluster label.
 
 - **Deployment:**
 Use a monte carlo simulation (10000 simulations) to create a priority list of
