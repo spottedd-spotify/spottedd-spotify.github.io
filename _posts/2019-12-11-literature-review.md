@@ -21,15 +21,15 @@ data infrastructure, model building, and final analysis:
 - [GCP python authetication documentation](https://cloud.google.com/docs/authentication/getting-started#auth-cloud-implicit-python): Documentation for authorization handling in Python
 
 ## Model Building
-#### K-Means:
+### K-Means:
 - [University of Washington's k-means course on Coursera](https://www.coursera.org/learn/ml-clustering-and-retrieval): Learned to how implement k-means using this course.
 - [Towards Data Science: K-Means](https://towardsdatascience.com/understanding-k-means-clustering-in-machine-learning-6a6e67336aa1): A useful high-level summary of the k-means algorithm
 
-#### K-NN:
+### K-NN:
 - [kNN classification](https://github.com/Harvard-IACS/2019-CS109A/tree/master/content/lectures/lecture10/presentation)
 
-#### Logistic Regression:
+### Logistic Regression:
 - [Logistic regression](https://github.com/Harvard-IACS/2019-CS109A/tree/master/content/lectures/lecture10/presentation)
 
-#### Monte Carlo:
+### Monte Carlo:
 - [Monte Carlo method overview](https://en.wikipedia.org/wiki/Monte_Carlo_method)
