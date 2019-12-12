@@ -67,7 +67,7 @@ images:
     title: "Kendrick Lamar: alright"
   - image_path: /images/content-baseline-modeling/Slayer_RainingBlood_nearestneighbors.svg
     title: "Slayer: Raining Blood"   
-
+mathjax: "true"
 ---
 
 - [Background](https://spottedd-spotify.github.io/contents/#background)
