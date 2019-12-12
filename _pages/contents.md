@@ -132,6 +132,9 @@ to show new songs to a user, the team can dial up or dial down the number of pla
 list. The efficacy of our methods for this part of the problem is not as readily observable since we don't have
 user satisfaction info here. However, we used our a priori considerations above to guide us in the right direction.
 
+See our [Literature Review](https://spottedd-spotify.github.io/literature-review/)
+for more details.
+
 ## Data Engineering
 We encountered multiple issues with our dataset. For one, the “playlist-song”
 dataset comprised of just under 70 million rows total. A dataset like this was
