@@ -266,7 +266,7 @@ duplicate songs from the target song is zero, which makes sense.
 
 
 ## Model Refinement
-### Better recommendation: *inverse distance weighted monte carlo*
+### Better recommendations: *inverse distance weighted monte carlo*
 
 ### Writing the prequel: *unique playlist models using KNN without clustering*
 After creating the KNN model that learns song cluster labels, we then asked the question, "What is the simplest model we
@@ -275,26 +275,26 @@ can make to serve as a comparison?". Like a good YA novelist, we decided to writ
 This model was the same as the baseline model in the sense that it utilized KNN to do supervised learning.
 
 However, this model differed from the baseline model in a few ways:
-- Targets and features: Our targets and features changed here.
+- **Targets and features:** Our targets and features changed here.
     1. Targets: Instead of predicting the cluster in which the song belongs (and thus, getting us a candidate set of
     playlists within that cluster), we now predicted the decision of inclusion and exclusion directly into a playlist
     (binary: 1 for inclusion and 0 for exclusion).
     2. Features: Our features required no pre-processing and are the pure Spotify musical features obtained from the API.
     
-- Individual models per playlist: While the baseline model was an omnibus model that looked at all songs across
+- **Individual models per playlist:** While the baseline model was an omnibus model that looked at all songs across
 playlists, this framework makes a separate model for each playlist. This addresses the question of representativeness
 and diversity mentioned in the background. Some playlists might be more diverse than others and/or more representative
 of certain musical features. We wanted to capture this variety in our models. We ran a random sample of 250 playlists
 and all of their songs. There were about 17,500 songs in total.
  
-- Accuracy metric: Instead of evaluating whether a song accurately fell into a cluster, we now evaluated whether a song
+- **Accuracy metric:** Instead of evaluating whether a song accurately fell into a cluster, we now evaluated whether a song
 accurately fell into specific playlists. Playlists were on average about 70 songs big.
 
-- Downsampling playlist non-examples: To get balanced data sets for each model run, we had to downsample 
+- **Downsampling playlist non-examples:** To get balanced data sets for each model run, we had to downsample 
 non-examples in the dataset. This was not relatively an issue when we were dealing with clusters since the number of
 examples there were quite large.
 
-- Stratified validation splits: Because of the large number of playlists in the data and the sparsity of examples for each, 
+- **Stratified validation splits:** Because of the large number of playlists in the data and the sparsity of examples for each, 
 the model required stratified validation splits, which again, was not as much of an issue for the cluster model.
 
 While this approach captures the heterogeneity of playlists (one of our considerations),
@@ -303,25 +303,28 @@ our findings show that this approach falls prey to overfitting. From a product p
 as well as the baseline model.
 
 The plots below tell us a few things:
-1. Overfitting occured. There was a huge gap between train and test accuracy and F1 scores. F1 scores are more revealing
+1. **Overfitting occured.** There was a huge gap between train and test accuracy and F1 scores. F1 scores are more revealing
 because they represent the harmonic mean between precision and recall which are both good measures for unbalanced and
 sparse data sets like ours. This is not great for generalizing to new songs.
 
-2. Our intuition that playlists are heterogenous in musical features is founded. The models that arose from each had
+2. **Our intuition that playlists are heterogenous is founded.** The models that arose from each had
 very different accuracies.
 
-3. Novelty is overrated. The results of these models gives a clue into how much novelty is in these playlists. K=2
+3. **Novelty is overrated.** The results of these models gives a clue into how much novelty is in these playlists. K=2
 performed the best here, meaning the act of averaging relatively close data points gave better predictions than 
 taking into account further data points.
 
 Figure: distribution of 250 playlist models, given different levels of k
 
 ![](/images/knn-features/train_accuracy.svg)
+
 ![](/images/knn-features/test_accuracy.svg)
-![](/images/knn-features/train_f1.svg)
+
 ![](/images/knn-features/train_f1.svg)
 
-Conclusion:
+![](/images/knn-features/test_f1.svg)
+
+**Conclusion:**
 This was not a great approach to predicting recommendations, because
 - **This tended to overfit.** Did not give great predictions for new songs.
 - **Violated our ease of deployment consideration.** For 250 playlists, the models took ~6 minutes to train and predict. Spotify
