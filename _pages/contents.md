@@ -266,7 +266,6 @@ duplicate songs from the target song is zero, which makes sense.
 
 
 ## Model Refinement
-### Better recommendations: *inverse distance weighted monte carlo*
 
 ### Writing the prequel: *unique playlist models using KNN without clustering*
 After creating the KNN model that learns song cluster labels, we then asked the question, "What is the simplest model we
@@ -339,6 +338,71 @@ neighbors will
 playlists can experience drift.
 - **Novelty was overrated** The one inference we can make from the performance of these models is that songs
 close to each other tend to predict inclusion and exclusion in playlists well.
+
+### Better recommendations: *inverse distance weighted monte carlo*
+Next, we turned to the playlist assignment problem. Specifically, the question
+we sought to answer was: given the audio features of a particular song, which 
+playlist should it be added to? To generate better playlist assignments, we 
+turned to iterations of a couple different Monte Carlo-based methods. To do so,
+we leveraged the our earlier clustering work. In particular, when a new song’s 
+cluster had been predicted, we could then say that this song was eligible to be
+added to an existing song’s playlist within that cluster, given that all songs 
+within the cluster were similar to one another.
+
+To determine which playlist would receive the new song, we implemented the 
+following high-level logic:
+1. Randomly sample one song out of all existing songs in the cluster
+2. For the selected existing song, randomly select a playlist associated with 
+that song (a song can have multiple playlists associated with it)
+3. Add the new song to the playlist sampled in step 2
+
+For the random sampling step, we tried two different approaches:
+1. *True Random Sampling:* We selected a single song/playlist using a truly 
+random implementation
+2. *Weighted Sampling:* We refined the sampling step in the true random sampling
+model by weighting in-cluster songs based on distance of music features. 
+Existing songs closer to the new song were weighted more in the sampling 
+procedure based on inverse distance weighting
+
+**Example: Lady Gaga's Bad Romance**
+To make our Monte Carlo approach more clear, we've provided an example of 
+playlist selection, using Lady Gaga's *Bad Romance*. First we used Monte Carlo
+simulation with `n=10000` iterations to randomly assign our song to a playlist
+belonging to a song within *Bad Romance's* cluster (identified earlier with 
+k-means clustering). After doing so, we selected the most commonly assigned 
+playlist. The most commonly assigned playlist in our simulations was `614690`:
+
+![Top 10 Playlists: Naive](/images/content-monte-carlo/top10_playlists_montecarlo_naive.svg)
+
+Next, we utilized *weighted sampling* to improve the musical "closeness" of 
+the assigned playlist to *Bad Romance's*. Specifically, for each playlist 
+available from the songs in *Bad Romance's* cluster, we computed the mean 
+distance of its audio features from it to *Bad Romance*. We then used the 
+inverse weight of that distance to sample in the Monte Carlo simulation. In 
+simpler terms, the closer a playlist was to *Bad Romance* in terms of audio 
+features, the higher the probability it would be selected. Again, we ran a
+simulation with `n=10000` iterations. The most commonly assigned playlist this
+time was `3814`.
+
+![Top 10 Playlists: Weighted](/images/content-monte-carlo/top10_playlists_montecarlo_weighted.svg)
+
+Now, let's compare the audio features across our naive playlist, our weighted
+playlist, and *Bad Romance* itself:
+
+![Audio Features: Bad Romance](/images/content-monte-carlo/top_playlist_song_features_gaga.svg)
+
+![Audio Features: Naive](/images/content-monte-carlo/top_playlist_song_features_naive.svg)
+
+![Audio Features: Weighted](/images/content-monte-carlo/top_playlist_song_features_weighted.svg)
+
+The differences here are subtle because all three are quite close in terms of 
+audio features. This is a testament to the efficacy of our clustering work 
+earlier. However, direct your attention to the following audio features: `key`,
+`speechiness`, `acousticness`, `instrumentalness`, `liveness`. As you can see, 
+*Bad Romance* has very low values for each of these fields (close to 0 for 
+`key`, `acousticness`, and `instrumentalness`. Our weighted Monte Carlo playlist
+is much closer to *Bad Romance*  for these field than that of the naive 
+playlist.
 
 ### A reliable workhorse: *unique playlist models using regularized logistic regression*
 
